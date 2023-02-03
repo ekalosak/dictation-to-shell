@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "dictation_to_shell"
+version = "0.1.0"
+description = ""
+authors = ["Eric Kalosa-Kenyon <helloateric@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/ekalosak/dictation-to-shell"
+
+[tool.poetry.dependencies]
+python >= "3.7"
+requests = "^2.18.4"
+openai = "^0.2.2"
+
+[tool.poetry.scripts]
+dictation_to_shell = "dictation_to_shell:main"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.3.2"
