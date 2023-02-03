@@ -26,6 +26,7 @@ import subprocess
 
 import openai
 
+
 # OpenAI API key
 API_KEY = os.environ.get('OPENAI_API_KEY')
 if not API_KEY:
@@ -67,33 +68,44 @@ Examples:
   out: mv foo.py bar.py
 
   in: "{dictation}"
-  out: "
 """
 
 def get_shell_command(dictation: str) -> str:
-    prompt = prompt_template.replace('{dictation}', dictation)
-    print(f"prompt:\n{prompt}")
-    responses = openai.Completion.create(
+    prompt = PROMPT.replace('{dictation}', dictation)
+    # print(f"prompt:\n{prompt}")
+    response = openai.Completion.create(
         engine="davinci",
         prompt=prompt,
         temperature=0.7,
         top_p=0.9,
         n=5,
-        stop="\n\n",
+        stop="\n",
     )
-    for resp in responses["choices"]:
-        print('###')
-        print(resp['text'])
-    command = response['choices'][0]['text']
-    print(f"command:\n{command}")
-    return command
+    choices = []
+    for resp in response["choices"]:
+        ch = resp['text'].strip()
+        if ch.startswith('out: '):
+            ch = ch[5:]
+            choices.append(ch)
+    for i, ch in enumerate(choices):
+        print(f'choice {i}:\n\t{ch}')
+    choice = input("Which command? Press enter to abort. : ")
+    if choice:
+        choice = int(choice)
+        command = choices[choice]
+        print(f"command:\n{command}")
+        return command
 
 def repl():
     print('---')
     dictation = input('next dictation:\n')
     cmd = get_shell_command(dictation)
-    if not input('enter any text to abort: '):
-        os.system(cmd)
+    if cmd:
+        exit_code, output = subprocess.getstatusoutput(cmd)
+        if exit_code:
+            print(f'nonzero exit code: {exit_code}')
+        if output:
+            print(output)
 
 def main():
     while 1:
