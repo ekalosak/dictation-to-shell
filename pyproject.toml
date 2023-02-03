@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dictation_to_shell"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "Dictate your shell commands on a Mac and run them directly in your terminal!"
 authors = ["Eric Kalosa-Kenyon <helloateric@gmail.com>"]
 license = "MIT"
 homepage = "https://github.com/ekalosak/dictation-to-shell"

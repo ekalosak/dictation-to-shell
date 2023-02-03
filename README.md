@@ -26,6 +26,5 @@ poetry install
 ## Publish to PyPi
 
 ```sh
-poetry build
-poetry publish
+poetry publish --build --username $PYPI_USERNAME --password $PYPI_PASSWORD
 ```
