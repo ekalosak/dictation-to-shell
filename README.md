@@ -1,5 +1,7 @@
 # dictation-to-shell
 
+[![-missing pypi-](https://img.shields.io/pypi/v/dictation-to-shell)](https://pypi.org/project/dictation-to-shell/)
+
 Dictate your shell commands on a Mac and run them directly in your terminal!
 
 ## Installation
