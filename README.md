@@ -8,6 +8,12 @@ Dictate your shell commands on a Mac and run them directly in your terminal!
 pip install dictation-to-shell
 ```
 
+## Usage
+
+```sh
+poetry run dictation_to_shell
+```
+
 ## Development
 
 It's recommended to use a virtual environment.
@@ -15,12 +21,6 @@ It's recommended to use a virtual environment.
 ```sh
 pip install poetry
 poetry install
-```
-
-## Testing
-
-```sh
-poetry run pytest
 ```
 
 ## Publish to PyPi

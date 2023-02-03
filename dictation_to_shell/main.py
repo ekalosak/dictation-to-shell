@@ -22,16 +22,16 @@
 
 import os
 import sys
+import subprocess
 
-import requests
-
-from openai import api_request
+import openai
 
 # OpenAI API key
 API_KEY = os.environ.get('OPENAI_API_KEY')
 if not API_KEY:
     print("OPENAI_API_KEY envvar required, quitting.")
     sys.exit(1)
+openai.api_key = API_KEY
 
 # OpenAI API endpoint
 API_ENDPOINT = 'https://api.openai.com/v1/engines/davinci/completions'
@@ -73,23 +73,31 @@ Examples:
 def get_shell_command(dictation: str) -> str:
     prompt = prompt_template.replace('{dictation}', dictation)
     print(f"prompt:\n{prompt}")
-    response = api_request(
-        API_ENDPOINT,
-        API_PARAMS,
-        API_HEADERS,
-        prompt,
+    responses = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt,
+        temperature=0.7,
+        top_p=0.9,
+        n=5,
+        stop="\n\n",
     )
+    for resp in responses["choices"]:
+        print('###')
+        print(resp['text'])
     command = response['choices'][0]['text']
     print(f"command:\n{command}")
     return command
 
-def main():
+def repl():
     print('---')
     dictation = input('next dictation:\n')
     cmd = get_shell_command(dictation)
     if not input('enter any text to abort: '):
         os.system(cmd)
 
-if __name__ == '__main__':
+def main():
     while 1:
-        main()
+        repl()
+
+if __name__ == '__main__':
+    main()

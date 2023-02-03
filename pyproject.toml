@@ -7,12 +7,11 @@ license = "MIT"
 homepage = "https://github.com/ekalosak/dictation-to-shell"
 
 [tool.poetry.dependencies]
-python >= "3.7"
-requests = "^2.18.4"
+python = "^3.7"
 openai = "^0.2.2"
 
 [tool.poetry.scripts]
-dictation_to_shell = "dictation_to_shell:main"
+dictation_to_shell = "dictation_to_shell.main:main"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.3.2"
